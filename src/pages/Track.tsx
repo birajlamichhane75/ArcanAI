@@ -86,7 +86,8 @@ export default function Track() {
     let logIndex = 0;
     const logInterval = setInterval(() => {
       if (logIndex < MOCK_LOGS.length) {
-        setLogs(prev => [...prev, MOCK_LOGS[logIndex]]);
+        const currentLog = MOCK_LOGS[logIndex];
+        setLogs(prev => [...prev, currentLog]);
         logIndex++;
       } else {
         clearInterval(logInterval);
@@ -264,13 +265,13 @@ export default function Track() {
                     className="flex gap-2 text-zinc-400"
                   >
                     <span className="text-zinc-600">[{new Date().toLocaleTimeString()}]</span>
-                    <span className={log.includes("complete") ? "text-emerald-400" : "text-indigo-400"}>
+                    <span className={log?.includes("complete") ? "text-emerald-400" : "text-indigo-400"}>
                       {log}
                     </span>
                   </motion.div>
                 ))}
               </AnimatePresence>
-              {logs.length > 0 && !logs[logs.length - 1].includes("complete") && (
+              {logs.length > 0 && !logs[logs.length - 1]?.includes("complete") && (
                 <motion.div 
                   animate={{ opacity: [1, 0.5, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}

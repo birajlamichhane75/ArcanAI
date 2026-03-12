@@ -50,7 +50,8 @@ export default function Launch() {
     let logIndex = 0;
     const logInterval = setInterval(() => {
       if (logIndex < fixLogs.length) {
-        setLogs(prev => [...prev, fixLogs[logIndex]]);
+        const currentLog = fixLogs[logIndex];
+        setLogs(prev => [...prev, currentLog]);
         logIndex++;
       } else {
         clearInterval(logInterval);

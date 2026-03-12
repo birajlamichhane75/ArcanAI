@@ -55,7 +55,8 @@ export default function Improve() {
     let logIndex = 0;
     const logInterval = setInterval(() => {
       if (logIndex < FIX_LOGS.length) {
-        setLogs(prev => [...prev, FIX_LOGS[logIndex]]);
+        const currentLog = FIX_LOGS[logIndex];
+        setLogs(prev => [...prev, currentLog]);
         logIndex++;
       } else {
         clearInterval(logInterval);
