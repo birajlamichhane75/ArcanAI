@@ -11,8 +11,13 @@ import {
   MessageSquare, 
   Activity,
   ArrowRight,
-  Terminal
+  Terminal,
+  Folder,
+  FileCode,
+  Clock,
+  ChevronRight
 } from "lucide-react";
+import { REPO_FILES, CHECKPOINTS } from "./LaunchData";
 
 const MINI_SCORES = [
   { id: "visibility", name: "Visibility", score: 88, color: "bg-violet-500", icon: Eye },
@@ -25,6 +30,8 @@ const MINI_SCORES = [
 export default function Launch() {
   const [launchState, setLaunchState] = useState<"idle" | "analyzing" | "comparison" | "optimizing" | "done">("idle");
   const [logs, setLogs] = useState<string[]>([]);
+  const [selectedFile, setSelectedFile] = useState("components/ProductCard.js");
+  const [selectedCheckpoint, setSelectedCheckpoint] = useState(3);
 
   const startAnalysis = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +65,80 @@ export default function Launch() {
         setTimeout(() => setLaunchState("done"), 1000);
       }
     }, 800);
+  };
+
+  const renderDiff = (original: string, optimized: string, type: 'original' | 'optimized') => {
+    if (!original && !optimized) return "Select a file to view";
+    
+    const origLines = (original || "").split('\n');
+    const optLines = (optimized || "").split('\n');
+    
+    if (type === 'original') {
+      return origLines.map((line, i) => {
+        const optLine = optLines[i];
+        let bgColor = "transparent";
+        let textColor = "text-zinc-300";
+        let prefix = "  ";
+        
+        if (optLine !== undefined && line !== optLine) {
+          bgColor = "bg-red-500/10";
+          textColor = "text-red-400";
+          prefix = "- ";
+        } else if (optLine === undefined) {
+          bgColor = "bg-red-500/10";
+          textColor = "text-red-400";
+          prefix = "- ";
+        }
+        
+        return (
+          <div key={i} className={`flex ${bgColor} ${textColor} px-2`}>
+            <div className="w-8 text-right pr-4 text-zinc-500 select-none opacity-50">{i + 1}</div>
+            <div className="select-none mr-2 opacity-50">{prefix}</div>
+            <div>{line}</div>
+          </div>
+        );
+      });
+    } else {
+      // For optimized side, we need to handle added lines
+      // This is a very simplified diff that assumes lines are mostly 1:1 or added
+      const result = [];
+      let origIdx = 0;
+      
+      for (let i = 0; i < optLines.length; i++) {
+        const line = optLines[i];
+        const origLine = origLines[origIdx];
+        
+        let bgColor = "transparent";
+        let textColor = "text-zinc-300";
+        let prefix = "  ";
+        
+        if (origLine === line) {
+          origIdx++;
+        } else {
+          // Check if it's a modified line or added line
+          // Simple heuristic: if the next few lines match, it's added/modified
+          bgColor = "bg-emerald-500/10";
+          textColor = "text-emerald-400";
+          prefix = "+ ";
+          if (origLine && origLine !== line && optLines[i+1] === origLines[origIdx+1]) {
+             // Modified
+             bgColor = "bg-yellow-500/10";
+             textColor = "text-yellow-400";
+             prefix = "~ ";
+             origIdx++;
+          }
+        }
+        
+        result.push(
+          <div key={i} className={`flex ${bgColor} ${textColor} px-2`}>
+            <div className="w-8 text-right pr-4 text-zinc-500 select-none opacity-50">{i + 1}</div>
+            <div className="select-none mr-2 opacity-50">{prefix}</div>
+            <div>{line}</div>
+          </div>
+        );
+      }
+      return result;
+    }
   };
 
   return (
@@ -163,96 +244,225 @@ export default function Launch() {
             )}
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* Left Side: Current Code */}
-            <div className="bg-[#1e1e1e] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-[500px]">
-              <div className="h-12 border-b border-zinc-800 bg-[#252526] flex items-center px-4 gap-4">
-                <Code2 className="w-4 h-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-300 font-mono">gaming-laptop.tsx</span>
-                <span className="text-xs text-red-400 ml-auto bg-red-400/10 px-2 py-1 rounded">Current</span>
+          {/* Optimization Explanation Panel */}
+          {(launchState === "optimizing" || launchState === "done") && (
+            <div className="bg-indigo-900/20 border border-indigo-500/30 rounded-xl p-4 flex gap-4">
+              <div className="p-2 bg-indigo-500/20 rounded-lg h-fit">
+                <Zap className="w-5 h-5 text-indigo-400" />
               </div>
-              <div className="flex-1 p-4 font-mono text-sm overflow-y-auto text-zinc-300">
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">1</div>export default function GamingLaptop() {'{'}</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">2</div>  return (</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">3</div>    &lt;div&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">4</div>      &lt;h1&gt;TitanX Gaming Laptop&lt;/h1&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">5</div>      &lt;p&gt;A fast laptop for gaming.&lt;/p&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">6</div>      &lt;ul&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">7</div>        &lt;li&gt;16GB RAM&lt;/li&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">8</div>        &lt;li&gt;1TB SSD&lt;/li&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">9</div>      &lt;/ul&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">10</div>      &lt;button&gt;Buy Now - $1299&lt;/button&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">11</div>    &lt;/div&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">12</div>  );</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">13</div>{'}'}</div>
+              <div>
+                <h3 className="text-sm font-medium text-indigo-100 mb-1">AI Optimization Summary</h3>
+                <p className="text-sm text-indigo-200/70 leading-relaxed">
+                  Arcana AI detected missing structured product metadata and incomplete schema markup.
+                  The optimization adds Schema.org structured data, price metadata, and product attributes so AI assistants can correctly understand and recommend the product.
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className="grid lg:grid-cols-12 gap-6">
+            {/* File Explorer */}
+            <div className="lg:col-span-3 bg-[#1e1e1e] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-[500px]">
+              <div className="h-12 border-b border-zinc-800 bg-[#252526] flex items-center px-4 gap-2">
+                <Folder className="w-4 h-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-300">Repository</span>
+              </div>
+              <div className="flex-1 p-2 overflow-y-auto">
+                {REPO_FILES.map((item, i) => (
+                  <div key={i} className="mb-1">
+                    {item.type === "folder" ? (
+                      <div>
+                        <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-zinc-300 hover:bg-zinc-800/50 rounded cursor-pointer">
+                          <ChevronRight className="w-3 h-3 text-zinc-500" />
+                          <Folder className="w-4 h-4 text-zinc-400" />
+                          {item.name}
+                        </div>
+                        <div className="pl-6 border-l border-zinc-800 ml-3 mt-1 space-y-1">
+                          {item.children?.map((child, j) => {
+                            const path = `${item.name}/${child.name}`;
+                            const isSelected = selectedFile === path;
+                            return (
+                              <div 
+                                key={j}
+                                onClick={() => setSelectedFile(path)}
+                                className={`flex items-center gap-2 px-2 py-1.5 text-sm rounded cursor-pointer transition-colors ${
+                                  isSelected ? "bg-indigo-500/20 text-indigo-300" : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-300"
+                                }`}
+                              >
+                                <FileCode className="w-4 h-4 opacity-70" />
+                                {child.name}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div 
+                        onClick={() => setSelectedFile(item.name)}
+                        className={`flex items-center gap-2 px-2 py-1.5 text-sm rounded cursor-pointer transition-colors ${
+                          selectedFile === item.name ? "bg-indigo-500/20 text-indigo-300" : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-300"
+                        }`}
+                      >
+                        <FileCode className="w-4 h-4 opacity-70" />
+                        {item.name}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right Side: Optimized Code */}
-            <div className="bg-[#1e1e1e] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-[500px] relative">
-              <div className="h-12 border-b border-zinc-800 bg-[#252526] flex items-center px-4 gap-4">
-                <Code2 className="w-4 h-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-300 font-mono">gaming-laptop.tsx</span>
-                <span className="text-xs text-emerald-400 ml-auto bg-emerald-400/10 px-2 py-1 rounded">AI Optimized</span>
+            {/* Code Comparison */}
+            <div className="lg:col-span-9 grid md:grid-cols-2 gap-4">
+              {/* Left Side: Current Code */}
+              <div className="bg-[#1e1e1e] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-[500px]">
+                <div className="h-12 border-b border-zinc-800 bg-[#252526] flex items-center px-4 gap-4">
+                  <Code2 className="w-4 h-4 text-zinc-400" />
+                  <span className="text-sm font-medium text-zinc-300 font-mono">{selectedFile.split('/').pop()}</span>
+                  <span className="text-xs text-red-400 ml-auto bg-red-400/10 px-2 py-1 rounded">Original</span>
+                </div>
+                <div className="flex-1 py-4 font-mono text-sm overflow-y-auto whitespace-pre">
+                  {renderDiff(
+                    CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.files[selectedFile as keyof typeof CHECKPOINTS[0]['files']]?.original || "",
+                    CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.files[selectedFile as keyof typeof CHECKPOINTS[0]['files']]?.optimized || "",
+                    'original'
+                  )}
+                </div>
               </div>
+
+              {/* Right Side: Optimized Code */}
+              <div className="bg-[#1e1e1e] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-[500px] relative">
+                <div className="h-12 border-b border-zinc-800 bg-[#252526] flex items-center px-4 gap-4">
+                  <Code2 className="w-4 h-4 text-zinc-400" />
+                  <span className="text-sm font-medium text-zinc-300 font-mono">{selectedFile.split('/').pop()}</span>
+                  <span className="text-xs text-emerald-400 ml-auto bg-emerald-400/10 px-2 py-1 rounded">Optimized</span>
+                </div>
+                
+                {launchState === "comparison" && (
+                  <div className="absolute inset-0 top-12 bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center z-10">
+                    <div className="text-center">
+                      <Zap className="w-8 h-8 text-indigo-400 mx-auto mb-3" />
+                      <p className="text-zinc-300 font-medium">Ready to optimize</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex-1 py-4 font-mono text-sm overflow-y-auto whitespace-pre">
+                  {renderDiff(
+                    CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.files[selectedFile as keyof typeof CHECKPOINTS[0]['files']]?.original || "",
+                    CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.files[selectedFile as keyof typeof CHECKPOINTS[0]['files']]?.optimized || "",
+                    'optimized'
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Repository Optimization Timeline */}
+          <div className="mt-12">
+            <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+              <GitBranch className="w-5 h-5 text-indigo-400" />
+              Repository Optimization Timeline
+            </h2>
+            
+            <div className="relative">
+              {/* Timeline Line */}
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-zinc-800 -translate-y-1/2 z-0" />
               
-              {launchState === "comparison" && (
-                <div className="absolute inset-0 top-12 bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center z-10">
-                  <div className="text-center">
-                    <Zap className="w-8 h-8 text-indigo-400 mx-auto mb-3" />
-                    <p className="text-zinc-300 font-medium">Ready to optimize</p>
+              {/* Timeline Nodes */}
+              <div className="relative z-10 flex justify-between">
+                {CHECKPOINTS.map((checkpoint, index) => {
+                  const isSelected = selectedCheckpoint === checkpoint.id;
+                  const isPast = index <= CHECKPOINTS.findIndex(c => c.id === selectedCheckpoint);
+                  
+                  return (
+                    <div 
+                      key={checkpoint.id}
+                      onClick={() => setSelectedCheckpoint(checkpoint.id)}
+                      className="flex flex-col items-center cursor-pointer group"
+                    >
+                      {/* Node */}
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors duration-300 ${
+                        isSelected 
+                          ? "bg-indigo-500 border-indigo-400 text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]" 
+                          : isPast
+                            ? "bg-zinc-800 border-indigo-500/50 text-indigo-300"
+                            : "bg-zinc-900 border-zinc-700 text-zinc-500 group-hover:border-zinc-500"
+                      }`}>
+                        {isSelected ? <CheckCircle2 className="w-4 h-4" /> : <span className="text-xs font-medium">{index + 1}</span>}
+                      </div>
+                      
+                      {/* Label */}
+                      <div className="mt-3 text-center w-32">
+                        <p className={`text-xs font-medium transition-colors ${
+                          isSelected ? "text-indigo-300" : isPast ? "text-zinc-300" : "text-zinc-500 group-hover:text-zinc-400"
+                        }`}>
+                          {checkpoint.name}
+                        </p>
+                        <p className="text-[10px] text-zinc-500 mt-1 flex items-center justify-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {checkpoint.time}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Selected Checkpoint Details */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedCheckpoint}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="mt-8 bg-[#1e1e1e] border border-zinc-800 rounded-xl p-6"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-lg font-medium text-white mb-2">
+                      {CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.name}
+                    </h3>
+                    <p className="text-sm text-zinc-400 max-w-2xl">
+                      {CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.description}
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <button 
+                      onClick={() => {
+                        if (selectedCheckpoint > 1) {
+                          setSelectedCheckpoint(selectedCheckpoint - 1);
+                        }
+                      }}
+                      disabled={selectedCheckpoint === 1}
+                      className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-300 text-sm font-medium rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <Clock className="w-4 h-4" />
+                      Compare Previous
+                    </button>
+                    <button 
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-sm font-medium rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <Eye className="w-4 h-4" />
+                      View Changes
+                    </button>
+                    <button 
+                      onClick={() => {
+                        alert(`Restoring snapshot: ${CHECKPOINTS.find(c => c.id === selectedCheckpoint)?.name}`);
+                      }}
+                      className="px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 text-sm font-medium rounded-lg transition-colors border border-indigo-500/20 flex items-center gap-2"
+                    >
+                      <GitBranch className="w-4 h-4" />
+                      Restore Snapshot
+                    </button>
                   </div>
                 </div>
-              )}
-
-              <div className="flex-1 p-4 font-mono text-sm overflow-y-auto text-zinc-300">
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">1</div>export default function GamingLaptop() {'{'}</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">2</div>  return (</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">3</div>    &lt;div&gt;</div>
-                
-                <AnimatePresence>
-                  {(launchState === "optimizing" || launchState === "done") && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="bg-emerald-900/20 border-l-2 border-emerald-500"
-                    >
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>      &lt;script type="application/ld+json"&gt;</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>        {`{`}</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>          "@context": "https://schema.org/",</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>          "@type": "Product",</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>          "name": "TitanX Gaming Laptop",</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>          "offers": {`{`} "@type": "Offer", "price": "1299.00", "priceCurrency": "USD" {`}`}</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>        {`}`}</div>
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>      &lt;/script&gt;</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">12</div>      &lt;h1&gt;TitanX Gaming Laptop&lt;/h1&gt;</div>
-                
-                <AnimatePresence>
-                  {(launchState === "optimizing" || launchState === "done") && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="bg-emerald-900/20 border-l-2 border-emerald-500"
-                    >
-                      <div className="flex text-emerald-400"><div className="w-8 text-right pr-4 text-emerald-500/50 select-none">+</div>      &lt;p&gt;Experience desktop-level performance with the TitanX Gaming Laptop. Featuring the latest RTX 4080 GPU, 16GB DDR5 RAM, and a lightning-fast 1TB NVMe SSD.&lt;/p&gt;</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">15</div>      &lt;ul&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">16</div>        &lt;li&gt;16GB RAM&lt;/li&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">17</div>        &lt;li&gt;1TB SSD&lt;/li&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">18</div>      &lt;/ul&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">19</div>      &lt;button&gt;Buy Now - $1299&lt;/button&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">20</div>    &lt;/div&gt;</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">21</div>  );</div>
-                <div className="flex"><div className="w-8 text-right pr-4 text-zinc-500 select-none">22</div>{'}'}</div>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
       )}
@@ -302,12 +512,15 @@ export default function Launch() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {MINI_SCORES.map((score, i) => {
                 const Icon = score.icon;
+                const showScore = launchState === "done" || selectedCheckpoint >= 3;
+                const displayScore = showScore ? score.score - (5 - selectedCheckpoint) * 2 : "--";
+                
                 return (
                   <motion.div 
                     key={score.id}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: launchState === "done" ? i * 0.1 : 0 }}
+                    transition={{ delay: showScore ? i * 0.1 : 0 }}
                     className="bg-zinc-950 border border-zinc-800 rounded-xl p-3"
                   >
                     <div className="flex items-center gap-2 text-zinc-400 text-xs mb-1">
@@ -315,14 +528,14 @@ export default function Launch() {
                       {score.name}
                     </div>
                     <div className="text-xl font-semibold text-zinc-100">
-                      {launchState === "done" ? score.score : "--"}%
+                      {displayScore}{showScore ? "%" : ""}
                     </div>
                   </motion.div>
                 );
               })}
             </div>
 
-            {launchState === "done" && (
+            {(launchState === "done" || selectedCheckpoint >= 4) && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
