@@ -28,17 +28,20 @@ export default function ModelPromptRush({ companyName }: ModelPromptRushProps) {
   const [snippetIndex, setSnippetIndex] = useState(0)
 
   useEffect(() => {
+    let snippetTimer: ReturnType<typeof setInterval>
+
     const promptTimer = setInterval(() => {
       setPromptCount(prev => {
         if (prev >= 100) {
           clearInterval(promptTimer)
+          clearInterval(snippetTimer)
           return 100
         }
         return prev + 1
       })
     }, 35)
 
-    const snippetTimer = setInterval(() => {
+    snippetTimer = setInterval(() => {
       setSnippetIndex(prev => (prev + 1) % PROMPT_SNIPPETS.length)
     }, 160)
 
