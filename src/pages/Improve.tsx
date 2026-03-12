@@ -370,8 +370,10 @@ export default function Improve() {
             <AnimatePresence mode="wait">
               {fixState === "pr" && (
                 <motion.div 
+                  key="pr"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6"
                 >
                   <div className="flex items-start gap-4 mb-6">
@@ -400,8 +402,10 @@ export default function Improve() {
 
               {fixState === "deploying" && (
                 <motion.div 
+                  key="deploying"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 flex flex-col items-center justify-center text-center h-[160px]"
                 >
                   <Server className="w-8 h-8 text-indigo-400 mb-4 animate-pulse" />
@@ -412,8 +416,10 @@ export default function Improve() {
 
               {fixState === "rescanning" && (
                 <motion.div 
+                  key="rescanning"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 flex flex-col items-center justify-center text-center h-[160px]"
                 >
                   <motion.div
@@ -429,8 +435,10 @@ export default function Improve() {
 
               {fixState === "done" && (
                 <motion.div 
+                  key="done"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   className="bg-emerald-900/20 border border-emerald-500/50 rounded-2xl p-6 flex flex-col items-center justify-center text-center h-[160px]"
                 >
                   <CheckCircle2 className="w-8 h-8 text-emerald-400 mb-4" />

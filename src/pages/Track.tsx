@@ -24,7 +24,8 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
-  Legend
+  Legend,
+  Cell
 } from "recharts";
 
 const MOCK_LOGS = [
@@ -123,6 +124,7 @@ export default function Track() {
       {/* Section 1: Input */}
       {scanState === "idle" && (
         <motion.div 
+          key="idle"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 backdrop-blur-sm"
@@ -166,6 +168,7 @@ export default function Track() {
       {/* Section 2: Scanning Visualization */}
       {scanState === "scanning" && (
         <motion.div 
+          key="scanning"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="grid lg:grid-cols-3 gap-6"
@@ -282,6 +285,7 @@ export default function Track() {
       {/* Section 3: AI Platform Testing */}
       {scanState === "testing" && (
         <motion.div 
+          key="testing"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 backdrop-blur-sm text-center"
@@ -321,6 +325,7 @@ export default function Track() {
       {/* Section 4: AI Visibility Dashboard */}
       {scanState === "dashboard" && (
         <motion.div 
+          key="dashboard"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
@@ -378,7 +383,11 @@ export default function Track() {
                       cursor={{ fill: '#27272a', opacity: 0.4 }}
                       contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }}
                     />
-                    <Bar dataKey="score" radius={[0, 4, 4, 0]} barSize={24} />
+                    <Bar dataKey="score" radius={4} barSize={24}>
+                      {CURRENT_SCORES.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
