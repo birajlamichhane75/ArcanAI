@@ -156,7 +156,7 @@ export default function WebsiteViewer({ websiteUrl, companyName, scanStarted, ac
             )}
 
             <div
-              className={`pointer-events-none absolute left-0 right-0 h-1 bg-primary/90 shadow-[0_0_22px_rgba(170,59,255,0.95)] ${
+              className={`pointer-events-none absolute left-0 right-0 h-1 bg-primary/90 shadow-[0_0_22px_rgba(85,17,56,0.95)] ${
                 scanStarted ? 'animate-[scanline_2s_ease-out_1_forwards]' : 'opacity-0'
               }`}
             />
