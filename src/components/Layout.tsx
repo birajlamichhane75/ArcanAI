@@ -45,12 +45,10 @@ export default function Layout() {
       <div className="min-h-screen bg-bg text-text">
         <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 lg:px-8 border-b border-border/60 bg-bg/80 backdrop-blur-xl">
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25">
-              A
-            </div>
             <span className="text-lg font-semibold text-text-heading tracking-tight">
               ArcanAI
             </span>
+            <img src="/arcana-logo.png" alt="ArcanAI" className="h-8 w-8 rounded-full object-cover" />
           </Link>
           <button
             onClick={toggleTheme}
@@ -67,16 +65,14 @@ export default function Layout() {
     )
   }
 
-  // App routes (analysis, improve, launch) - keep existing dark nav style
+  // App routes (analysis, improve, launch)
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans flex flex-col">
-      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
+    <div className="min-h-screen bg-bg text-text font-sans flex flex-col">
+      <header className="sticky top-0 z-50 border-b border-border/60 bg-bg/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/analysis" className="flex items-center gap-2.5 text-lg font-semibold tracking-tight">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25">
-              A
-            </div>
+          <Link to="/analysis" className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-text-heading">
             ArcanAI
+            <img src="/arcana-logo.png" alt="ArcanAI" className="h-8 w-8 rounded-full object-cover" />
           </Link>
 
           <nav className="flex items-center gap-1">
@@ -90,8 +86,8 @@ export default function Layout() {
                   className={cn(
                     'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors',
                     isActive
-                      ? 'bg-zinc-800 text-zinc-100'
-                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-text hover:text-text-heading hover:bg-surface-alt'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -104,11 +100,12 @@ export default function Layout() {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="p-2 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 rounded-md transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-text hover:text-text-heading hover:border-accent-border transition-all duration-200 cursor-pointer"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
               {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
             </button>
-            <div className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-xs font-medium">
+            <div className="w-8 h-8 rounded-full bg-surface-alt border border-border flex items-center justify-center text-xs font-medium text-text-heading">
               U
             </div>
           </div>

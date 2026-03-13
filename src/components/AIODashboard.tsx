@@ -37,7 +37,7 @@ export default function AIODashboard({ companyName, websiteUrl }: AIODashboardPr
         </div>
         <button
           onClick={() => navigate('/products')}
-          className="absolute right-5 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-purple-500/30 bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(147,51,234,0.3),0_4px_20px_rgba(147,51,234,0.15)] transition-all duration-200 hover:bg-purple-500 hover:shadow-[0_4px_16px_rgba(147,51,234,0.4),0_8px_32px_rgba(147,51,234,0.2)] hover:-translate-y-[calc(50%+1px)] active:scale-[0.98]"
+          className="absolute right-5 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-[#551138]/30 bg-[#551138] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(85,17,56,0.3),0_4px_20px_rgba(85,17,56,0.15)] transition-all duration-200 hover:bg-[#7a1a52] hover:shadow-[0_4px_16px_rgba(85,17,56,0.4),0_8px_32px_rgba(85,17,56,0.2)] hover:-translate-y-[calc(50%+1px)] active:scale-[0.98]"
         >
           <Package size={16} />
           Products

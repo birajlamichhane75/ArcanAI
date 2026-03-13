@@ -40,7 +40,7 @@ export default function PlatformBreakdownChart({ data }: PlatformBreakdownChartP
               dataKey="mention"
               name="Mention Rate"
               radius={[6, 6, 0, 0]}
-              fill="#aa3bff"
+              fill="#551138"
               animationDuration={900}
             />
             <Bar

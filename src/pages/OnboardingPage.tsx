@@ -212,7 +212,7 @@ export default function OnboardingPage() {
                 type="submit"
                 className="w-full py-3 rounded-xl bg-primary text-white font-semibold shadow-lg shadow-primary/25 hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30 transition-all duration-200 cursor-pointer"
               >
-                Start Analysis
+                Release Swarm of Agents
               </button>
             </form>
           </div>

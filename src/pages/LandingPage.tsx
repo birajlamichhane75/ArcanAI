@@ -11,9 +11,9 @@ const features = [
         <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
       </svg>
     ),
-    gradient: 'from-violet-500/10 to-fuchsia-500/10',
-    borderHover: 'hover:border-violet-400/40',
-    iconBg: 'bg-violet-500/10 text-violet-500 dark:text-violet-400',
+    gradient: 'from-[#551138]/10 to-[#a02468]/10',
+    borderHover: 'hover:border-[#7a1a52]/40',
+    iconBg: 'bg-[#551138]/10 text-[#551138] dark:text-[#c73e88]',
   },
   {
     title: 'Improve',
@@ -59,8 +59,8 @@ export default function LandingPage() {
   return (
     <div className="relative overflow-hidden">
       {/* Background orbs */}
-      <GradientOrb className="w-[600px] h-[600px] bg-violet-500 -top-48 -right-48" />
-      <GradientOrb className="w-[500px] h-[500px] bg-fuchsia-500 top-[40%] -left-64" />
+      <GradientOrb className="w-[600px] h-[600px] bg-[#551138] -top-48 -right-48" />
+      <GradientOrb className="w-[500px] h-[500px] bg-[#a02468] top-[40%] -left-64" />
       <GradientOrb className="w-[400px] h-[400px] bg-primary top-[75%] right-[-10%]" />
 
       {/* Hero */}
@@ -79,7 +79,7 @@ export default function LandingPage() {
         >
           Take control of your
           <span className="relative">
-            <span className="bg-gradient-to-r from-primary via-fuchsia-400 to-primary bg-clip-text text-transparent"> AI presence</span>
+            <span className="bg-gradient-to-r from-primary via-[#c73e88] to-primary bg-clip-text text-transparent"> AI presence</span>
           </span>
         </h1>
 
@@ -198,7 +198,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-text-heading tracking-tight">
             Ready to optimize your
-            <span className="bg-gradient-to-r from-primary to-fuchsia-400 bg-clip-text text-transparent"> AI presence</span>?
+            <span className="bg-gradient-to-r from-primary to-[#c73e88] bg-clip-text text-transparent"> AI presence</span>?
           </h2>
           <p className="mt-5 text-text text-lg leading-relaxed max-w-xl mx-auto">
             Join the businesses already taking control of how AI represents
@@ -220,10 +220,8 @@ export default function LandingPage() {
       <footer className="relative px-6 py-10 border-t border-border">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-white text-xs font-bold">
-              A
-            </div>
             <span className="text-sm font-semibold text-text-heading">ArcanAI</span>
+            <img src="/arcana-logo.png" alt="ArcanAI" className="h-7 w-7 rounded-full object-cover" />
           </div>
           <p className="text-sm text-text">
             &copy; {new Date().getFullYear()} ArcanAI. All rights reserved.
