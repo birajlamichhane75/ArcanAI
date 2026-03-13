@@ -18,7 +18,7 @@ export default function SignupPage() {
     <div className="relative min-h-[calc(100vh-65px)] flex items-center justify-center px-6 py-16 overflow-hidden">
       {/* Background orbs */}
       <div className="pointer-events-none absolute w-[500px] h-[500px] rounded-full bg-primary/20 blur-3xl -top-48 -right-32 dark:opacity-[0.06]" />
-      <div className="pointer-events-none absolute w-[400px] h-[400px] rounded-full bg-fuchsia-500/15 blur-3xl bottom-[-10%] -left-32 dark:opacity-[0.05]" />
+      <div className="pointer-events-none absolute w-[400px] h-[400px] rounded-full bg-[#a02468]/15 blur-3xl bottom-[-10%] -left-32 dark:opacity-[0.05]" />
 
       <div className="relative w-full max-w-md" style={{ animation: 'fadeup 0.6s ease-out both' }}>
         <div className="rounded-2xl border border-border bg-surface p-8 md:p-10 shadow-sm">
