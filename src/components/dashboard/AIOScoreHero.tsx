@@ -41,7 +41,7 @@ export default function AIOScoreHero({ score, delta }: AIOScoreHeroProps) {
     <section className="dashboard-panel overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(170,59,255,0.16),_transparent_55%)]" />
       <div className="relative grid gap-4 lg:grid-cols-[240px_1fr] lg:items-center">
-        <div className="mx-auto h-52 w-full max-w-[220px] lg:h-56 lg:max-w-[240px]">
+        <div className="relative mx-auto h-52 w-full max-w-[220px] lg:h-56 lg:max-w-[240px]">
           <ResponsiveContainer width="100%" height="100%">
             <RadialBarChart
               data={radialData}
@@ -55,11 +55,13 @@ export default function AIOScoreHero({ score, delta }: AIOScoreHeroProps) {
               <RadialBar dataKey="value" background cornerRadius={10} animationDuration={1200} />
             </RadialBarChart>
           </ResponsiveContainer>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-3xl font-black uppercase tracking-[0.2em] text-text-heading lg:text-4xl">AIO</span>
+          </div>
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text">AIO Score</p>
-          <div className="mt-2 flex items-end gap-3">
+          <div className="flex items-end gap-3">
             <div className="text-5xl font-black tracking-tight text-text-heading lg:text-6xl">{displayScore}</div>
             <span className="pb-2 text-sm text-text">/100</span>
           </div>

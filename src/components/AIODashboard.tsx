@@ -1,3 +1,5 @@
+import { Package } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import AIOScoreHero from './dashboard/AIOScoreHero'
 import AIOTrendChart from './dashboard/AIOTrendChart'
 import CoreHealthBars from './dashboard/CoreHealthBars'
@@ -20,16 +22,26 @@ interface AIODashboardProps {
 }
 
 export default function AIODashboard({ companyName, websiteUrl }: AIODashboardProps) {
+  const navigate = useNavigate()
   const reveal = useDashboardReveal()
   const aioScore = computeAioScore(CORE_METRICS)
 
   return (
     <section className="space-y-6">
-      <div className="rounded-2xl border border-border bg-surface p-5 lg:p-7">
-        <h1 className="text-2xl font-bold text-text-heading lg:text-3xl">Analysis Dashboard</h1>
-        <p className="mt-1 text-sm text-text">
-          Results for <span className="font-semibold text-text-heading">{companyName}</span> ({websiteUrl})
-        </p>
+      <div className="relative rounded-2xl border border-border bg-surface p-5 lg:p-7">
+        <div>
+          <h1 className="text-2xl font-bold text-text-heading lg:text-3xl">Analysis Dashboard</h1>
+          <p className="mt-1 text-sm text-text">
+            Results for <span className="font-semibold text-text-heading">{companyName}</span> ({websiteUrl})
+          </p>
+        </div>
+        <button
+          onClick={() => navigate('/products')}
+          className="absolute right-5 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-xl border border-purple-500/30 bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(147,51,234,0.3),0_4px_20px_rgba(147,51,234,0.15)] transition-all duration-200 hover:bg-purple-500 hover:shadow-[0_4px_16px_rgba(147,51,234,0.4),0_8px_32px_rgba(147,51,234,0.2)] hover:-translate-y-[calc(50%+1px)] active:scale-[0.98]"
+        >
+          <Package size={16} />
+          Products
+        </button>
       </div>
 
       <div

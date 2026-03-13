@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Sparkles, Activity, Wrench, Rocket } from 'lucide-react'
+import { Activity, Wrench, Rocket } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import { cn } from '../lib/utils'
 
@@ -72,11 +72,11 @@ export default function Layout() {
     <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans flex flex-col">
       <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/analysis" className="flex items-center gap-2 text-xl font-semibold tracking-tight">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/50">
-              <Sparkles className="w-5 h-5 text-indigo-400" />
+          <Link to="/analysis" className="flex items-center gap-2.5 text-lg font-semibold tracking-tight">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25">
+              A
             </div>
-            Arcana
+            ArcanAI
           </Link>
 
           <nav className="flex items-center gap-1">
