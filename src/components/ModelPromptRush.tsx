@@ -83,7 +83,7 @@ export default function ModelPromptRush({ companyName, onComplete }: ModelPrompt
         </div>
         <div className="h-2.5 rounded-full bg-slate-300/45 dark:bg-slate-700/55">
           <div
-            className="h-full rounded-full bg-primary transition-[width] duration-75 shadow-[0_0_16px_rgba(170,59,255,0.55)]"
+            className="h-full rounded-full bg-primary transition-[width] duration-75 shadow-[0_0_16px_rgba(85,17,56,0.55)]"
             style={{ width: `${promptCount}%` }}
           />
         </div>
