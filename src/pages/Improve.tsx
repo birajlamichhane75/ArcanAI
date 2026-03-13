@@ -260,7 +260,7 @@ export default function ImproveUpdate() {
             <div
               style={{
                 ...s.aioPie,
-                backgroundImage: `conic-gradient(${aioColor} 0 ${pieDeg}deg, #1E1E2E ${pieDeg}deg 360deg)`,
+                backgroundImage: `conic-gradient(${aioColor} 0 ${pieDeg}deg, var(--color-surface-alt) ${pieDeg}deg 360deg)`,
                 boxShadow: `0 0 20px ${aioColor}66`,
               }}
             >
@@ -287,7 +287,7 @@ export default function ImproveUpdate() {
               <div style={s.integrationBoxHeader}>
                 <span style={{ ...s.integrationBoxIcon, background: "#238636", color: "#fff" }}>GH</span>
                 <span style={s.integrationBoxTitle}>GitHub</span>
-                <span style={{ ...s.integrationBoxStatus, color: connections.github.connected ? "#3fb950" : "#8b949e" }}>
+                <span style={{ ...s.integrationBoxStatus, color: connections.github.connected ? "#3fb950" : "var(--color-text)" }}>
                   {connections.github.connected ? "Connected" : "Not connected"}
                 </span>
               </div>
@@ -309,9 +309,9 @@ export default function ImproveUpdate() {
               <button
                 style={{
                   ...s.integrationBoxBtn,
-                  background: connections.github.connected ? "#21262d" : "#238636",
-                  color: connections.github.connected ? "#8b949e" : "#fff",
-                  border: connections.github.connected ? "1px solid #30363d" : "none",
+                  background: connections.github.connected ? "var(--color-surface-alt)" : "#238636",
+                  color: connections.github.connected ? "var(--color-text)" : "#fff",
+                  border: connections.github.connected ? "1px solid var(--color-border)" : "none",
                 }}
                 disabled={
                   connections.github.connected ||
@@ -329,7 +329,7 @@ export default function ImproveUpdate() {
               <div style={s.integrationBoxHeader}>
                 <span style={{ ...s.integrationBoxIcon, background: "#611f69", color: "#fff" }}>S</span>
                 <span style={s.integrationBoxTitle}>Slack</span>
-                <span style={{ ...s.integrationBoxStatus, color: connections.slack.connected ? "#e01e5a" : "#8b949e" }}>
+                <span style={{ ...s.integrationBoxStatus, color: connections.slack.connected ? "#e01e5a" : "var(--color-text)" }}>
                   {connections.slack.connected ? "Connected" : "Not connected"}
                 </span>
               </div>
@@ -351,9 +351,9 @@ export default function ImproveUpdate() {
               <button
                 style={{
                   ...s.integrationBoxBtn,
-                  background: connections.slack.connected ? "#1a0d1a" : "#611f69",
-                  color: connections.slack.connected ? "#8b949e" : "#fff",
-                  border: connections.slack.connected ? "1px solid #3d2340" : "none",
+                  background: connections.slack.connected ? "var(--color-surface-alt)" : "#611f69",
+                  color: connections.slack.connected ? "var(--color-text)" : "#fff",
+                  border: connections.slack.connected ? "1px solid var(--color-border)" : "none",
                 }}
                 disabled={
                   connections.slack.connected ||
@@ -371,7 +371,7 @@ export default function ImproveUpdate() {
               <div style={s.integrationBoxHeader}>
                 <span style={{ ...s.integrationBoxIcon, background: "#5B2E91", color: "#fff" }}>T</span>
                 <span style={s.integrationBoxTitle}>MS Teams</span>
-                <span style={{ ...s.integrationBoxStatus, color: connections.teams.connected ? "#6264A7" : "#8b949e" }}>
+                <span style={{ ...s.integrationBoxStatus, color: connections.teams.connected ? "#6264A7" : "var(--color-text)" }}>
                   {connections.teams.connected ? "Connected" : "Not connected"}
                 </span>
               </div>
@@ -393,9 +393,9 @@ export default function ImproveUpdate() {
               <button
                 style={{
                   ...s.integrationBoxBtn,
-                  background: connections.teams.connected ? "#1a0d24" : "#5B2E91",
-                  color: connections.teams.connected ? "#8b949e" : "#fff",
-                  border: connections.teams.connected ? "1px solid #3d2a50" : "none",
+                  background: connections.teams.connected ? "var(--color-surface-alt)" : "#5B2E91",
+                  color: connections.teams.connected ? "var(--color-text)" : "#fff",
+                  border: connections.teams.connected ? "1px solid var(--color-border)" : "none",
                 }}
                 disabled={
                   connections.teams.connected ||
@@ -434,7 +434,7 @@ export default function ImproveUpdate() {
               <button
                 style={{
                   ...s.metricCard,
-                  borderColor: expanded === m.id ? m.color : "#1E1E2E",
+                  borderColor: expanded === m.id ? m.color : "var(--color-border)",
                   borderBottomLeftRadius: expanded === m.id ? 0 : 10,
                   borderBottomRightRadius: expanded === m.id ? 0 : 10,
                 }}
@@ -735,16 +735,16 @@ export default function ImproveUpdate() {
 }
 
 const s = {
-  page: { minHeight: "100vh", background: "#0A0A0F", color: "#fff", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
-  header: { display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "20px 32px", background: "#0A0A0F" },
-  aioWrap: { background: "#0D0D18", borderRadius: 12, padding: "16px 24px", border: "1px solid #1E1E2E" },
+  page: { minHeight: "100vh", background: "var(--color-bg)", color: "var(--color-text-heading)", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
+  header: { display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "20px 32px", background: "var(--color-bg)" },
+  aioWrap: { background: "var(--color-surface)", borderRadius: 12, padding: "16px 24px", border: "1px solid var(--color-border)" },
   aioMeta: { display: "flex", flexDirection: "column", alignItems: "center", gap: 6 },
   aioLabel: { fontSize: 16, letterSpacing: 3, textTransform: "uppercase", fontWeight: 800 },
   aioPie: {
     width: 52,
     height: 52,
     borderRadius: "50%",
-    backgroundColor: "#1E1E2E",
+    backgroundColor: "var(--color-surface-alt)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -753,7 +753,7 @@ const s = {
     width: 36,
     height: 36,
     borderRadius: "50%",
-    background: "#050509",
+    background: "var(--color-bg)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -764,13 +764,13 @@ const s = {
   mainLeft: { flex: 1, minWidth: 0 },
   topRow: { marginBottom: 24 },
   topRowLeft: { display: "flex", flexDirection: "column", gap: 8 },
-  heading: { fontSize: 26, fontWeight: 700, margin: 0, letterSpacing: 1 },
+  heading: { fontSize: 26, fontWeight: 700, margin: 0, letterSpacing: 1, color: "var(--color-text-heading)" },
   healthMetaRow: { display: "flex", alignItems: "center", gap: 10 },
   healthLineOuter: {
     width: 160,
     height: 4,
     borderRadius: 999,
-    background: "#141422",
+    background: "var(--color-surface-alt)",
     overflow: "hidden",
   },
   healthLineInner: {
@@ -780,77 +780,77 @@ const s = {
       "linear-gradient(90deg, #FF6B6B 0%, #FFD93D 35%, #A8FF78 70%, #00E5CC 100%)",
     boxShadow: "0 0 14px #00E5CC55",
   },
-  healthMetaAccent: { fontSize: 12, color: "#aaa", whiteSpace: "nowrap", letterSpacing: 1 },
-  subheading: { fontSize: 13, color: "#666", margin: 0, lineHeight: 1.6 },
+  healthMetaAccent: { fontSize: 12, color: "var(--color-text)", whiteSpace: "nowrap", letterSpacing: 1 },
+  subheading: { fontSize: 13, color: "var(--color-text)", margin: 0, lineHeight: 1.6 },
   metricsGrid: { display: "flex", flexDirection: "column", gap: 12 },
   metricWrapper: { display: "flex", flexDirection: "column" },
-  metricCard: { background: "#0D0D18", border: "1px solid", borderRadius: 10, padding: "18px 22px", cursor: "pointer", textAlign: "left", width: "100%", transition: "border-color 0.2s", boxSizing: "border-box" },
+  metricCard: { background: "var(--color-surface)", border: "1px solid", borderRadius: 10, padding: "18px 22px", cursor: "pointer", textAlign: "left", width: "100%", transition: "border-color 0.2s", boxSizing: "border-box" },
   metricTop: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 },
-  metricLabel: { fontSize: 15, fontWeight: 600, color: "#ddd", letterSpacing: 0.5 },
+  metricLabel: { fontSize: 15, fontWeight: 600, color: "var(--color-text-heading)", letterSpacing: 0.5 },
   metricRight: { display: "flex", alignItems: "center", gap: 12 },
   metricTag: { fontSize: 11, letterSpacing: 2, fontWeight: 700 },
   metricScore: { fontSize: 22, fontWeight: 700 },
-  chevron: { color: "#555", fontSize: 10 },
-  barBg: { height: 6, background: "#1E1E2E", borderRadius: 99 },
+  chevron: { color: "var(--color-text)", fontSize: 10 },
+  barBg: { height: 6, background: "var(--color-surface-alt)", borderRadius: 99 },
   barFill: { height: "100%", borderRadius: 99, transition: "width 0.8s ease-out" },
-  expandedPanel: { background: "#0D0D18", border: "1px solid", borderTop: "none", borderRadius: "0 0 10px 10px", padding: "22px 24px" },
-  expandedTitle: { fontSize: 11, letterSpacing: 2, color: "#888", marginTop: 0, marginBottom: 12 },
+  expandedPanel: { background: "var(--color-surface)", border: "1px solid", borderTop: "none", borderRadius: "0 0 10px 10px", padding: "22px 24px" },
+  expandedTitle: { fontSize: 11, letterSpacing: 2, color: "var(--color-text)", marginTop: 0, marginBottom: 12 },
   issueList: { paddingLeft: 18, margin: "0 0 20px 0" },
-  issueItem: { color: "#bbb", fontSize: 14, marginBottom: 8, lineHeight: 1.6 },
-  recCard: { background: "#13131F", border: "1px solid", borderRadius: 8, padding: "16px 20px", marginBottom: 20 },
+  issueItem: { color: "var(--color-text)", fontSize: 14, marginBottom: 8, lineHeight: 1.6 },
+  recCard: { background: "var(--color-surface-alt)", border: "1px solid", borderRadius: 8, padding: "16px 20px", marginBottom: 20 },
   recLabel: { fontSize: 10, letterSpacing: 3, marginTop: 0, marginBottom: 8 },
-  recText: { fontSize: 14, color: "#ccc", lineHeight: 1.7, margin: 0 },
+  recText: { fontSize: 14, color: "var(--color-text)", lineHeight: 1.7, margin: 0 },
   actionRow: { marginTop: 4 },
-  actionPrompt: { fontSize: 13, color: "#666", marginBottom: 12 },
+  actionPrompt: { fontSize: 13, color: "var(--color-text)", marginBottom: 12 },
   actionBtns: { display: "flex", gap: 12, flexWrap: "wrap" },
-  diyBtn: { padding: "10px 20px", background: "transparent", border: "1px solid #444", color: "#aaa", borderRadius: 8, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 13, fontWeight: 600, letterSpacing: 0.5 },
+  diyBtn: { padding: "10px 20px", background: "transparent", border: "1px solid var(--color-border)", color: "var(--color-text)", borderRadius: 8, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 13, fontWeight: 600, letterSpacing: 0.5 },
   agentBtn: { padding: "10px 20px", background: "transparent", border: "1px solid", borderRadius: 8, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 13, fontWeight: 700, letterSpacing: 0.5 },
   diyPanel: { marginTop: 8 },
-  diyTitle: { fontSize: 11, letterSpacing: 2, color: "#888", marginBottom: 16 },
+  diyTitle: { fontSize: 11, letterSpacing: 2, color: "var(--color-text)", marginBottom: 16 },
   diyStep: { display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 12 },
   stepNum: { minWidth: 24, height: 24, border: "1px solid", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, flexShrink: 0 },
-  stepText: { fontSize: 14, color: "#bbb", lineHeight: 1.6, paddingTop: 2 },
-  backBtn: { marginTop: 16, background: "transparent", border: "none", color: "#555", cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 13, padding: 0, letterSpacing: 0.5 },
+  stepText: { fontSize: 14, color: "var(--color-text)", lineHeight: 1.6, paddingTop: 2 },
+  backBtn: { marginTop: 16, background: "transparent", border: "none", color: "var(--color-text)", cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 13, padding: 0, letterSpacing: 0.5 },
   agentPanel: { marginTop: 8 },
-  agentDesc: { fontSize: 14, color: "#bbb", lineHeight: 1.7, marginBottom: 16, marginTop: 0 },
+  agentDesc: { fontSize: 14, color: "var(--color-text)", lineHeight: 1.7, marginBottom: 16, marginTop: 0 },
   agentBtnRow: { display: "flex", alignItems: "center", gap: 16 },
   launchBtn: { padding: "12px 24px", border: "none", borderRadius: 8, color: "#000", fontWeight: 700, fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 14, cursor: "pointer", letterSpacing: 0.5 },
   successCard: { textAlign: "center", padding: "20px 0" },
   successIcon: { fontSize: 36, margin: "0 0 8px 0" },
-  successTitle: { fontSize: 16, fontWeight: 700, marginBottom: 8, color: "#fff" },
-  successText: { fontSize: 14, color: "#888", lineHeight: 1.7, maxWidth: 380, margin: "0 auto" },
-  connectedUrl: { fontSize: 11, color: "#777", marginTop: 4, wordBreak: "break-all" },
+  successTitle: { fontSize: 16, fontWeight: 700, marginBottom: 8, color: "var(--color-text-heading)" },
+  successText: { fontSize: 14, color: "var(--color-text)", lineHeight: 1.7, maxWidth: 380, margin: "0 auto" },
+  connectedUrl: { fontSize: 11, color: "var(--color-text)", marginTop: 4, wordBreak: "break-all" },
   accountsRow: { marginBottom: 28 },
   accountsHeaderRow: { marginBottom: 14 },
-  accountsTitle: { fontSize: 18, fontWeight: 600, margin: "0 0 6px", color: "#eee" },
-  accountsSub: { fontSize: 12, color: "#666", margin: 0, lineHeight: 1.5 },
-  accountsSubLine: { fontSize: 14, color: "#555", margin: "4px 0 0", lineHeight: 1.5 },
+  accountsTitle: { fontSize: 18, fontWeight: 600, margin: "0 0 6px", color: "var(--color-text-heading)" },
+  accountsSub: { fontSize: 12, color: "var(--color-text)", margin: 0, lineHeight: 1.5 },
+  accountsSubLine: { fontSize: 14, color: "var(--color-text)", margin: "4px 0 0", lineHeight: 1.5 },
   integrationBoxesRow: { display: "flex", gap: 16, flexWrap: "wrap" },
   integrationBox: { flex: 1, minWidth: 200, maxWidth: 320, borderRadius: 12, padding: 16, boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 10, border: "2px solid", minHeight: 160 },
-  integrationBoxGitHub: { borderColor: "#238636", background: "linear-gradient(180deg, rgba(35,134,54,0.12) 0%, #0D0D18 100%)" },
-  integrationBoxSlack: { borderColor: "#611f69", background: "linear-gradient(180deg, rgba(97,31,105,0.15) 0%, #0D0D18 100%)" },
-  integrationBoxTeams: { borderColor: "#5B2E91", background: "linear-gradient(180deg, rgba(91,46,145,0.15) 0%, #0D0D18 100%)" },
+  integrationBoxGitHub: { borderColor: "#238636", background: "linear-gradient(180deg, rgba(35,134,54,0.12) 0%, var(--color-surface) 100%)" },
+  integrationBoxSlack: { borderColor: "#611f69", background: "linear-gradient(180deg, rgba(97,31,105,0.15) 0%, var(--color-surface) 100%)" },
+  integrationBoxTeams: { borderColor: "#5B2E91", background: "linear-gradient(180deg, rgba(91,46,145,0.15) 0%, var(--color-surface) 100%)" },
   integrationBoxHeader: { display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" },
   integrationBoxIcon: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
-  integrationBoxTitle: { fontSize: 16, fontWeight: 600, color: "#eee" },
+  integrationBoxTitle: { fontSize: 16, fontWeight: 600, color: "var(--color-text-heading)" },
   integrationBoxStatus: { fontSize: 12, marginLeft: "auto" },
-  integrationBoxInput: { width: "100%", boxSizing: "border-box", background: "#13131F", border: "1px solid #2A2A40", borderRadius: 8, padding: "8px 10px", fontSize: 13, color: "#eee", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', outline: "none" },
+  integrationBoxInput: { width: "100%", boxSizing: "border-box", background: "var(--color-surface-alt)", border: "1px solid var(--color-border)", borderRadius: 8, padding: "8px 10px", fontSize: 13, color: "var(--color-text-heading)", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', outline: "none" },
   integrationBoxBtn: { padding: "8px 12px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
   accountHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4, gap: 8 },
-  accountLabel: { fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", color: "#777" },
+  accountLabel: { fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-text)" },
   accountStatusOk: { fontSize: 11, color: "#00E5CC", fontWeight: 600 },
-  accountInput: { width: "100%", boxSizing: "border-box", background: "#13131F", border: "1px solid #2A2A40", borderRadius: 8, padding: "8px 10px", fontSize: 12, color: "#eee", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', marginBottom: 6, outline: "none" },
+  accountInput: { width: "100%", boxSizing: "border-box", background: "var(--color-surface-alt)", border: "1px solid var(--color-border)", borderRadius: 8, padding: "8px 10px", fontSize: 12, color: "var(--color-text-heading)", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', marginBottom: 6, outline: "none" },
   accountButton: { width: "100%", padding: "7px 10px", borderRadius: 8, border: "none", background: "#00E5CC", color: "#000", fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
-  accountButtonDisabled: { width: "100%", padding: "7px 10px", borderRadius: 8, border: "1px solid #2A2A40", background: "#111119", color: "#666", fontSize: 12, fontWeight: 600, cursor: "default", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
+  accountButtonDisabled: { width: "100%", padding: "7px 10px", borderRadius: 8, border: "1px solid var(--color-border)", background: "var(--color-surface-alt)", color: "var(--color-text)", fontSize: 12, fontWeight: 600, cursor: "default", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
 
   agentInlineBlock: { marginTop: 12, display: "flex", flexDirection: "column", gap: 12 },
   agentLogsOnly: { marginTop: 24 },
   agentGrid: { display: "grid", gridTemplateColumns: "minmax(0, 1.2fr) minmax(0, 1fr)", gap: 18, marginTop: 24 },
   agentGridLeft: { display: "flex", flexDirection: "column", gap: 12, minWidth: 0 },
-  codeCard: { background: "#0D0D18", border: "1px solid #1E1E2E", borderRadius: 10, overflow: "hidden" },
-  codeHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 10px", background: "#111119", borderBottom: "1px solid #1E1E2E", fontSize: 11, color: "#888" },
+  codeCard: { background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 10, overflow: "hidden" },
+  codeHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 10px", background: "var(--color-surface-alt)", borderBottom: "1px solid var(--color-border)", fontSize: 11, color: "var(--color-text)" },
   codeHeaderLabel: { fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
-  codeHeaderSide: { fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#555" },
+  codeHeaderSide: { fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "var(--color-text)" },
   codeBody: { padding: "10px 12px", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', fontSize: 12, background: "#050509" },
   codeLine: { display: "flex", alignItems: "flex-start", gap: 10, lineHeight: 1.5 },
   codeLineNumber: { width: 24, textAlign: "right", color: "#444", userSelect: "none" },
@@ -861,26 +861,26 @@ const s = {
   diffTextRemoved: { color: "#FF7B7B", whiteSpace: "pre" },
 
   agentSide: { display: "flex", flexDirection: "column", gap: 12 },
-  logsCard: { background: "#0D0D18", border: "1px solid #1E1E2E", borderRadius: 10, padding: "10px 12px", maxHeight: 220, display: "flex", flexDirection: "column" },
-  logsHeader: { fontSize: 12, color: "#aaa", marginBottom: 6 },
+  logsCard: { background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 10, padding: "10px 12px", maxHeight: 220, display: "flex", flexDirection: "column" },
+  logsHeader: { fontSize: 12, color: "var(--color-text)", marginBottom: 6 },
   logsBody: { flex: 1, overflowY: "auto", paddingRight: 4 },
   logRow: { display: "flex", gap: 6, fontSize: 11, marginBottom: 4 },
-  logTime: { color: "#555", flexShrink: 0 },
-  logText: { color: "#ccc" },
+  logTime: { color: "var(--color-text)", flexShrink: 0 },
+  logText: { color: "var(--color-text)" },
   logCursor: { width: 10, height: 14, background: "#00E5CC", animation: "blink 1s infinite alternate" },
 
-  prCard: { marginTop: 10, background: "#0D0D18", border: "1px solid #1E1E2E", borderRadius: 10, padding: "10px 12px" },
-  prTitle: { fontSize: 13, fontWeight: 600, color: "#eee", marginBottom: 4 },
-  prText: { fontSize: 12, color: "#aaa", margin: "0 0 10px" },
-  prCode: { fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', background: "#151525", padding: "1px 4px", borderRadius: 4 },
+  prCard: { marginTop: 10, background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 10, padding: "10px 12px" },
+  prTitle: { fontSize: 13, fontWeight: 600, color: "var(--color-text-heading)", marginBottom: 4 },
+  prText: { fontSize: 12, color: "var(--color-text)", margin: "0 0 10px" },
+  prCode: { fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', background: "var(--color-surface-alt)", padding: "1px 4px", borderRadius: 4 },
   prButtons: { display: "flex", gap: 8, flexWrap: "wrap" },
   prIcon: { width: 16, height: 16, marginRight: 6, display: "inline-block" },
   prPrimary: {
     padding: "8px 16px",
     borderRadius: 8,
     border: "none",
-    background: "#551138",
-    color: "#fff",
+    background: "var(--color-primary)",
+    color: "var(--color-text-heading)",
     fontSize: 13,
     fontWeight: 600,
     cursor: "pointer",
@@ -906,14 +906,14 @@ const s = {
     fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif',
   },
 
-  statusCard: { marginTop: 10, background: "#0D0D18", border: "1px solid #1E1E2E", borderRadius: 10, padding: "12px 14px" },
-  statusTitle: { fontSize: 13, fontWeight: 600, color: "#eee", marginBottom: 4 },
-  statusText: { fontSize: 12, color: "#aaa", margin: 0 },
+  statusCard: { marginTop: 10, background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 10, padding: "12px 14px" },
+  statusTitle: { fontSize: 13, fontWeight: 600, color: "var(--color-text-heading)", marginBottom: 4 },
+  statusText: { fontSize: 12, color: "var(--color-text)", margin: 0 },
 
   doneCard: { marginTop: 10, background: "#06140F", border: "1px solid #0F3D30", borderRadius: 10, padding: "12px 14px" },
   doneText: { fontSize: 12, color: "#B1F2DA", margin: 0 },
 
   finalCtaWrap: { marginTop: 16, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" },
   finalCta: { padding: "12px 24px", borderRadius: 10, border: "none", background: "#00E5CC", color: "#000", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif', boxShadow: "0 0 18px #00E5CC55" },
-  finalCtaSecondary: { padding: "12px 24px", borderRadius: 10, border: "1px solid #2A2A40", background: "transparent", color: "#aaa", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
+  finalCtaSecondary: { padding: "12px 24px", borderRadius: 10, border: "1px solid var(--color-border)", background: "transparent", color: "var(--color-text)", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif' },
 };
